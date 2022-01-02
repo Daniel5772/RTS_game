@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RTS.Units.Player;
 
 
 namespace RTS.InputManager
@@ -78,6 +79,36 @@ namespace RTS.InputManager
                 }
                 isDragging = false;
             }
+
+            if (Input.GetMouseButtonDown(1) && HaveSelectedUnits())
+            {
+                //create a ray
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //check if we hit sth
+                if (Physics.Raycast(ray, out hit))
+                {
+                    //if we do, then do something with that data
+                    LayerMask layerHit = hit.transform.gameObject.layer;
+
+                    switch (layerHit.value)
+                    {
+                        case 8: //Units Layer
+                            //do sth
+                            break;
+                        case 9: //enemy units layer
+                            //attack or set target
+                        default: //if none of the above happen
+                            //do sth
+                            foreach (Transform unit in selectedUnits)
+                            {
+                                PlayerUnit pU = unit.gameObject.GetComponent<PlayerUnit>();
+                                pU.MoveUnit(hit.point);
+                            }
+                            break;
+
+                    }
+                }
+            }
         }
         private void SelectUnit(Transform unit, bool canMultiselect = false)
         {
@@ -108,6 +139,18 @@ namespace RTS.InputManager
             Camera cam = Camera.main;
             Bounds vpBounds = MultiSelect.GetVPBounds(cam, mousePos, Input.mousePosition);
             return vpBounds.Contains(cam.WorldToViewportPoint(tf.position));
+        }
+
+        private bool HaveSelectedUnits()
+        {
+            if (selectedUnits.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

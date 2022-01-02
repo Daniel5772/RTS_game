@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fa7445393f04a45a371874cd3cabe4, type: 3}
   m_Name: Worker
   m_EditorClassIdentifier: 
-  isPlayerUnit: 0
   type: 0
   name: 
   playerPrefab: {fileID: 1634197190828674497, guid: 0b0cfa053d3c05d4da9df03f363c8bec,
     type: 3}
   enemyPrefab: {fileID: 2873740234843087367, guid: 103c610c6c1dbd64b87837e8689e3482,
     type: 3}
-  cost: 0
-  attack: 0
-  health: 0
+  cost: 25
+  attack: 2
+  atkRange: 1
+  health: 50
   armor: 0
